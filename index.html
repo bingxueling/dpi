@@ -4,11 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>显示屏幕分辨率的小工具</title>
 <script>
-document.write("<h1>屏幕分辨率为：" + window.devicePixelRatio  + ", 屏幕宽度为：" + window.screen.width + ", 屏幕高度为：" + window.screen.height + "</h1>");
+document.write("<h1>屏幕分辨率为:" + window.devicePixelRatio  + "倍, 屏幕宽度为:" + window.screen.width *  window.devicePixelRatio + "px, 屏幕高度为:" + window.screen.height * window.devicePixelRatio + "px</h1>");
 </script>
 <style type="text/css">
 h1{
-	font-size: 100px;
+	font-size: 50px;
 }
 </style>
 </head>
