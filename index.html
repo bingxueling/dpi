@@ -1,18 +1,105 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="https://www.w3.org/1999/xhtml">
+<!DOCTYPE html> 
+<html> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>显示屏幕分辨率的小工具</title>
-<script>
-document.write("<h1>屏幕分辨率为:" + window.devicePixelRatio  + "倍, 屏幕宽度为:" + window.screen.width *  window.devicePixelRatio + "px, 屏幕高度为:" + window.screen.height * window.devicePixelRatio + "px</h1>");
-</script>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+<title>查看屏幕DPI信息</title>
+
 <style type="text/css">
-h1{
-	font-size: 50px;
-}
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	html {
+		font-size: 62.5% !important;
+		font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif; 
+		line-height: 1.2;
+		letter-spacing: 0.1rem;
+		color: #1a2a3a;
+		background-color: #FFFFFF;
+	}
+	body  {
+		height: 100%;
+		padding: 0 3rem;
+	}
+	#header {
+		font-size: 2rem;
+		font-weight: 700;
+		text-align: center;
+		color: rgba(0, 132, 254, 1);
+		margin: 3rem 0 3rem 0;
+	}
+	#content >P {
+		margin: 1rem 0;
+		padding: 1rem;
+		font-size: 1.8rem;
+		border-radius: 1rem;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-align-items: center;
+		align-items: center;
+		background-color: rgba(0, 132, 254, 0.15);
+	}
+	#content .title {
+		display: inline-block;
+		width: 9.6rem;
+		font-size: 1.2rem;
+		text-align: right;
+		color: rgba(0, 132, 254, 1);
+		padding-right: 1.2rem;
+	}
+	#content .sign {
+		margin: 0 0.6rem;
+		color: rgba(0, 132, 254, 1);
+	}
+	#qr {
+		height: 100%;
+		text-align: center;
+		margin-top: 1rem;
+	}
+	#qr p {
+		font-size: 1.2rem;
+		color: #999999;
+		padding: 2rem;
+	}
+	#qr img{
+		width: 100%;
+		border-radius: 1.2rem;
+	}
 </style>
 </head>
 <body>
-<script type="text/javascript" src="https://js.users.51.la/19899671.js"></script>	
+	<p id="header">本设备屏幕信息</p>
+	<div id="content">
+		<p><span class="title">物理分辨率/px</span><span id="pxw">Error</span><span class="sign">×</span><span id="pxh">Error</span></p>
+		<p><span class="title">逻辑分辨率/dp</span><span id="dpw">Error</span><span class="sign">×</span><span id="dph">Error</span></p>
+		<p><span class="title">密度比/dpi</span><span id="dpi">Error</span><span class="sign">倍</span></p>
+		<div id="qr">
+			<p>长按二维码保存到相册</p>
+			<img src="dpi_QR.png" alt="dpi网址二维码">
+		</div>
+	</div>
+	
+	<!-- 读取屏幕信息 -->
+	<script type="text/javascript">
+		// 获取屏幕信息
+		var dpi = window.devicePixelRatio;
+		var dpw = window.screen.width;
+		var dph = window.screen.height;
+		//获取dom元素
+		var pxwSpan = document.getElementById("pxw");
+		var pxhSpan = document.getElementById("pxh");
+		var dpwSpan = document.getElementById("dpw");
+		var dphSpan = document.getElementById("dph");
+		var dpiSpan = document.getElementById("dpi");
+		//修改dom内容
+		pxwSpan.innerHTML =  dpw * dpi;
+		pxhSpan.innerHTML = dph * dpi;
+		dpwSpan.innerHTML = dpw;
+		dphSpan.innerHTML = dph;
+		dpiSpan.innerHTML = dpi;
+	</script>
+	<!-- 增加数据统计 -->
+	<script type="text/javascript" src="https://js.users.51.la/19899671.js"></script>
 </body>
 </html>
