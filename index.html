@@ -42,8 +42,8 @@
 	}
 	#content .title {
 		display: inline-block;
-		width: 9.6rem;
-		font-size: 1.2rem;
+		min-width: 11.2rem;
+		font-size: 1.4rem;
 		text-align: right;
 		color: rgba(0, 132, 254, 1);
 		padding-right: 1.2rem;
@@ -55,15 +55,16 @@
 	#qr {
 		height: 100%;
 		text-align: center;
-		margin-top: 1rem;
+		margin-top: 2rem;
 	}
 	#qr p {
-		font-size: 1.2rem;
+		font-size: 1.4rem;
 		color: #999999;
-		padding: 2rem;
+		padding: 1rem;
 	}
 	#qr img{
 		width: 100%;
+		max-width: 60rem;
 		border-radius: 1.2rem;
 	}
 </style>
@@ -71,17 +72,50 @@
 <body>
 	<p id="header">本设备屏幕信息</p>
 	<div id="content">
-		<p><span class="title">物理分辨率/px</span><span id="pxw">Error</span><span class="sign">×</span><span id="pxh">Error</span></p>
-		<p><span class="title">逻辑分辨率/dp</span><span id="dpw">Error</span><span class="sign">×</span><span id="dph">Error</span></p>
-		<p><span class="title">密度比/dpi</span><span id="dpi">Error</span><span class="sign">倍</span></p>
+		<p id="px"><span class="title">像素分辨率/px</span><span id="pxw">Error</span><span class="sign">×</span><span id="pxh">Error</span></p>
+		<p id="dp"><span class="title">逻辑分辨率/dp</span><span id="dpw">Error</span><span class="sign">×</span><span id="dph">Error</span></p>
+		<p id="dpi"><span class="title">密度比/dpi</span><span id="dpiv">Error</span><span class="sign">倍</span></p>
 		<div id="qr">
-			<p>长按二维码保存到相册</p>
+			<p id="qr-save">长按二维码保存到相册</p>
 			<img src="dpi_QR.png" alt="dpi网址二维码">
 		</div>
 	</div>
 	
 	<!-- 读取屏幕信息 -->
 	<script type="text/javascript">
+		// 非中文环境, 翻译页面
+		var LANGUAGE_EN = 0;
+		var LANGUAGE_ZH = 1;
+		var contentMultiLanguage = {
+			"appName": ["Device Screen Information", "本设备屏幕信息"],
+			"pxTitle": ["PX Resolution", "像素分辨率/px"],
+			"dpTitle": ["DP Resolution", "逻辑分辨率/dp"],
+			"dpiTitle": ["DPI", "密度比/dpi"],
+			"dpiSign": ["x", "倍"],
+			"qrSave": ["Long press to save QR code", "长按二维码保存到相册"]
+		}
+		var languageUse =(navigator.language || navigator.browserLanguage).toLowerCase();
+		console.log(languageUse);
+		if(languageUse.indexOf('zh')>=0)
+		{
+			// 假如浏览器语言是中文
+			console.log("中文");
+		}
+		else if(languageUse.indexOf('en')>=0)
+		{
+			// 假如浏览器语言是英文
+			console.log("English");
+			document.getElementById("header").innerHTML = contentMultiLanguage.appName[LANGUAGE_EN];
+			document.querySelector("#px .title").innerHTML = contentMultiLanguage.pxTitle[LANGUAGE_EN];
+			document.querySelector("#dp .title").innerHTML = contentMultiLanguage.dpTitle[LANGUAGE_EN];
+			document.querySelector("#dpi .title").innerHTML = contentMultiLanguage.dpiTitle[LANGUAGE_EN];
+			document.querySelector("#dpi .sign").innerHTML = contentMultiLanguage.dpiSign[LANGUAGE_EN];
+			document.getElementById("qr-save").innerHTML = contentMultiLanguage.qrSave[LANGUAGE_EN];
+		}
+		else
+		{
+			// 假如浏览器语言是其它语言
+		}
 		// 获取屏幕信息
 		var dpi = window.devicePixelRatio;
 		var dpw = window.screen.width;
@@ -91,7 +125,7 @@
 		var pxhSpan = document.getElementById("pxh");
 		var dpwSpan = document.getElementById("dpw");
 		var dphSpan = document.getElementById("dph");
-		var dpiSpan = document.getElementById("dpi");
+		var dpiSpan = document.getElementById("dpiv");
 		//修改dom内容
 		pxwSpan.innerHTML =  dpw * dpi;
 		pxhSpan.innerHTML = dph * dpi;
